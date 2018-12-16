@@ -6,5 +6,6 @@
         <div><label for="idFunc">ИД функции перехода в состояние: </label><input id="idFunc" name="idFunc" type="number" /></div>
         <div><label for="beg">Начало(0 - нет): </label><input id="beg" name="beg" type="number" /></div>
         <!-- Конец jsp блока -->
-        <div><input value="Добавить" type="submit" /></div>
+        <br>
+        <div><input value="Добавить" type="submit" class="primary"/></div>
 <%@ include file = "template/footer.jsp" %>

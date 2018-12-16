@@ -4,5 +4,6 @@
         <div><label for="id">ИД группы: </label><input id="id" name="id" type="number" /></div>
         <div><label for="personId">ИД сотрудника: </label><input id="personId" name="personId" type="number" /></div>
         <!-- Конец jsp блока -->
-        <div><input value="Добавить" type="submit" /></div>
+        <br>
+        <div><input value="Добавить" type="submit" class="primary"/></div>
 <%@ include file = "template/footer.jsp" %>

@@ -6,5 +6,6 @@
         <div><label for="disNum">Номер ИЛИ: </label><input id="disNum" name="disNum" type="number" /></div>
         <div><label for="predId">ИД предиката: </label><input id="predId" name="predId" type="number" /></div>
         <!-- Конец jsp блока -->
-        <div><input value="Создать" type="submit" /></div>
+        <br>
+        <div><input value="Создать" type="submit" class="primary"/></div>
 <%@ include file = "template/footer.jsp" %>

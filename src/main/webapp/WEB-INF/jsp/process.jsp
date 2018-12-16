@@ -5,5 +5,6 @@
         <div><label for="idProc">ИД типового процесса: </label><input id="idProc" name="idProc" type="number" /></div>
         <div><label for="idProd">ИД изделия: </label><input id="idProd" name="idProd" type="number" /></div>
         <!-- Конец jsp блока -->
-        <div><input value="Добавить" type="submit" /></div>
+        <br>
+        <div><input value="Добавить" type="submit" class="primary"/></div>
 <%@ include file = "template/footer.jsp" %>
