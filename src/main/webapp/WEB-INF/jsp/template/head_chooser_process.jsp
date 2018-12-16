@@ -11,5 +11,5 @@
 </head>
 <body>
 <div style="margin-bottom:30px;">
-    <a href="${pageContext.request.contextPath}/">Назад</a>
+    <a href="${pageContext.request.contextPath}/constructor">Назад</a>
     <form method="POST">

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/typeDec")
+@RequestMapping("/constructor/typeDec")
 @RequiredArgsConstructor
 public class TypeDecController {
 

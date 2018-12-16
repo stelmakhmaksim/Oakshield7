@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<%@ include file = "template/head.jsp" %>
+<%@ include file = "template/head_constructors.jsp" %>
         <!-- Начало jsp блока -->
         <div><label for="decId">Ид типового решения: </label><input id="decId" name="decId" type="number" /></div>
         <div><label for="stateId">Ид типового состояния: </label><input id="stateId" name="stateId" type="number" /></div>

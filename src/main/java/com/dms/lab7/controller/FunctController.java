@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/funct")
+@RequestMapping("/constructor/funct")
 @RequiredArgsConstructor
 public class FunctController {
 

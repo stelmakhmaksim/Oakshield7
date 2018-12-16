@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("/predicate")
+@RequestMapping("/constructor/predicate")
 @RequiredArgsConstructor
 public class PredicateController {
 

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/prod")
+@RequestMapping("/constructor/prod")
 @RequiredArgsConstructor
 public class ProdController {
 

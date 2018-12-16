@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/grIncl")
+@RequestMapping("/constructor/grIncl")
 @RequiredArgsConstructor
 public class GrInclController {
 

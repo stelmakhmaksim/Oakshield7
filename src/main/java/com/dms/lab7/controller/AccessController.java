@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/perm")
+@RequestMapping("/constructor/perm")
 @RequiredArgsConstructor
 public class AccessController {
 

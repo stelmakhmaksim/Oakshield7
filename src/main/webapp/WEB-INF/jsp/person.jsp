@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<%@ include file = "template/head.jsp" %>
+<%@ include file = "template/head_constructors.jsp" %>
         <!-- Начало jsp блока -->
         <div><label for="name">Имя сотрудника: </label><input id="name" name="name" type="text" /></div>
         <!-- Конец jsp блока -->

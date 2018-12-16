@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/typeState")
+@RequestMapping("/constructor/typeState")
 @RequiredArgsConstructor
 public class TypeStateController {
 

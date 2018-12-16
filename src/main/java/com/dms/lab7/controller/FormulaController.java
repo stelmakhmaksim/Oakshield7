@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("/formula")
+@RequestMapping("/constructor/formula")
 @RequiredArgsConstructor
 public class FormulaController {
 

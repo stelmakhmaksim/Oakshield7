@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/proc")
+@RequestMapping("/constructor/proc")
 @RequiredArgsConstructor
 public class ProcessController {
 

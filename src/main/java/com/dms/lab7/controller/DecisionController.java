@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/dec")
+@RequestMapping("/constructor/dec")
 @RequiredArgsConstructor
 public class DecisionController {
 

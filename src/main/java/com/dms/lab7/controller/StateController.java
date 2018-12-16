@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/state")
+@RequestMapping("/constructor/state")
 @RequiredArgsConstructor
 public class StateController {
 

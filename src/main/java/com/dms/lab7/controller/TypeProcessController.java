@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/typeProcess")
+@RequestMapping("/constructor/typeProcess")
 @RequiredArgsConstructor
 public class TypeProcessController {
 

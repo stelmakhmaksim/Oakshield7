@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/grPersons")
+@RequestMapping("/constructor/grPersons")
 @RequiredArgsConstructor
 public class GrPersonController {
 
