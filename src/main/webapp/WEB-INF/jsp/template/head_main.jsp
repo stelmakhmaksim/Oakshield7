@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    {<title><%= request.getAttribute("title") %></title>
+    <title><%= request.getAttribute("title") %></title>
     <link rel="icon" type="image/png" href="images/fav.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" type="text/css">
