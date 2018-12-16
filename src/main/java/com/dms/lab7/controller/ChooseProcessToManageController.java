@@ -30,6 +30,6 @@ public class ChooseProcessToManageController {
 
     @PostMapping
     public String post(Model model, @RequestParam Long idProc) {
-        return "manage_process";
+        return "manage";
     }
 }
