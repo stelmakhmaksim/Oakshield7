@@ -3,7 +3,7 @@
 <br>
 <!-- Начало jsp блока -->
 <form action="${pageContext.request.contextPath}/choose_process/manage" method ="GET">
-    ИД процесса: <input id="idProc" name="idProc" type="number" class="wrapper"/> <br><br>
+    ИД процесса: <input id="idProc" name="idProc" type="number" class="wrapper" style="background-color: whitesmoke; color: black; font-family:Verdana;"/> <br><br>
     <input value="Перейти к управлению этим процессом" type="submit" class="primary"/>
     <!-- Конец jsp блока -->
 </form>
