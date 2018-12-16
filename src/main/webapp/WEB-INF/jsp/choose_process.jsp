@@ -3,4 +3,6 @@
 <!-- Начало jsp блока -->
 <div><label for="idProc">ИД процесса: </label><input id="idProc" name="idProc" type="number" /></div>
 <!-- Конец jsp блока -->
-<div><input value="Добавить" type="submit" /></div>
+<div><input value="Перейти к управлению этим процессом" type="submit" /></div>
+
+<%@ include file = "template/footer.jsp" %>
