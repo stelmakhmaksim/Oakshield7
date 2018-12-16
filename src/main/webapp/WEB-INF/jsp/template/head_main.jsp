@@ -16,4 +16,3 @@
         <div class="inner">
             <h2><%= request.getAttribute("title") %></h2>            
         <a href="${pageContext.request.contextPath}/">Назад</a>
-        <form method="POST">
