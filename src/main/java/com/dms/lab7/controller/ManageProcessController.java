@@ -5,16 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/choose_process/{idProc}")
+@RequestMapping("/choose_process/manage")
 @RequiredArgsConstructor
 public class ManageProcessController {
     @GetMapping
-    public ModelAndView main(@RequestParam Long idProc) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("manage");
-        return modelAndView;
+    public String main(@RequestParam Long idProc) {
+        return "manage";
     }
 }
