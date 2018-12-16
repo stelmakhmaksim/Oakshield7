@@ -4,12 +4,13 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 </form>
 </div>
-
+<div class="inner">
+<section>
 <%
     Map<String, List<List<String>>> tables = (Map<String, List<List<String>>>) request.getAttribute("tables");
     for (String tableName : tables.keySet()) {
 %>
-<table style="margin:20px 0;" id="<%= tableName %>" border=1></table>
+<table style="table-wrapper" id="<%= tableName %>" border=1></table>
 <%
     }
     for (Map.Entry<String, List<List<String>>> table : tables.entrySet()) {
@@ -28,5 +29,7 @@
 <%
     }
 %>
+</section>
+</div>
 </body>
 </html>
