@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,6 +24,7 @@ public class ManageProcessController {
     private final TypeDecisionRep typeDecisionRep;
     private final ProcessRep processRep;
     private final StateRep stateRep;
+
     @GetMapping
     public String main(Model model, @RequestParam Long idProc) {
         Process currentProc = processRep.getOne(idProc);
@@ -37,6 +39,30 @@ public class ManageProcessController {
         model.addAttribute("processState", currentStateByProcessId);
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
+        return "manage";
+    }
+
+    @PostMapping
+    public String updateStateByProc(Model model, @RequestParam Long idProc, @RequestParam Long id) {
+        System.out.println(id); // id решения
+        System.out.println(idProc); // id процесса
+        // TODO: Сохранить решение с id для текущего состояния процесса состояния
+        ///////////////////////////////////////////////////////////////
+        // TODO: отобразить в Model новое состояние с решениями
+        Process currentProc = processRep.getOne(idProc);
+        // TODO: Должно быть раскомичено, когда будешь корректно доставать
+        // TODO: возможные решения для текущего состояния по iD состояния (нормально реализован метод findAllByStateId(idProc))
+        // TODO: findCurrentStateByProcessId достает текущее состояние процесса с idProc
+        //List<TypeDecision> allByStateId = typeDecisionRep.findAllByStateId(idState);
+        // State currentStateByProcessId = stateRep.findCurrentStateByProcessId(idProc);
+        State currentStateByProcessId = stateRep.findAll().get(0);
+        List<TypeDecision> allByStateId = typeDecisionRep.findAll();
+        Map<State, List<TypeDecision>> processListMap = Collections.singletonMap(currentStateByProcessId, allByStateId);
+        model.addAttribute("processState", currentStateByProcessId);
+        model.addAttribute("processName", currentProc.getName());
+        model.addAttribute("possibleSolving", allByStateId);
+        //////////////////////////////////////////////////////////////
+
         return "manage";
     }
 }
