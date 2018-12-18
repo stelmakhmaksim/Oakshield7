@@ -13,16 +13,29 @@
 <div><input value="Создать" type="submit" class="primary"/></div>
 
 <table border="1">
-    <caption>Возможные решения</caption>
+    <caption>Возможные решения состояния <c:out value="${processState.typeState.name}"/></caption>
     <tr>
         <th>ID</th>
         <th>Название</th>
     </tr>
     <c:forEach items="${possibleSolving}" var="possibleSolving">
         <tr>
-            <!-- Конец jsp блока -->
             <td><c:out value="${possibleSolving.id}"/></td>
             <td><c:out value="${possibleSolving.name}"/></td>
+        </tr>
+    </c:forEach>
+</table>
+
+<table border="1">
+    <caption>Траектория процесса ${processName}</caption>
+    <tr>
+        <th>Состояние процесса</th>
+        <th>Решение</th>
+    </tr>
+    <c:forEach items="${processTrajectory}" var="processTrajectory">
+        <tr>
+            <td><c:out value="${processTrajectory.state.typeState.name}"/></td>
+            <td><c:out value="${processTrajectory.typeDecision.name}"/></td>
         </tr>
     </c:forEach>
 </table>
