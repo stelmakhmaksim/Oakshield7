@@ -3,7 +3,7 @@
 
 <c:forEach items="${processState}" var="processState">
     <tr>
-        <td>Employee ID: <c:out value="${processState.key.name}"/></td>
-        <td>Employee Pass: <c:out value="${processState.value}"/></td>
+        <td>Состояние процесса: <c:out value="${processState.key.name}"/></td>
+        <td>Возможные решения: <c:out value="${processState.value}"/></td>
     </tr>
 </c:forEach>
