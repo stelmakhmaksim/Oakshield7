@@ -21,7 +21,9 @@
 <div><a href="${pageContext.request.contextPath}/constructor/grIncl">Включение сотрудников в группу</a></div>
 <br>
 <div><a href="${pageContext.request.contextPath}/constructor/state">Возможные состояния типового процесса</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/possibleState">Возможные состояния переходов</a></div>
 <div><a href="${pageContext.request.contextPath}/constructor/dec">Возможные решения типового процесса</a></div>
+
 <div><a href="${pageContext.request.contextPath}/constructor/perm">Разрешения</a></div>
 <br>
 <div><a href="${pageContext.request.contextPath}/constructor/proc">Процессы</a></div>
