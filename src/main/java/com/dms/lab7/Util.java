@@ -123,12 +123,13 @@ public class Util {
     }
 
     public static List<List<String>> get(ProcessRep processRep) {
-        return getMap(Arrays.asList("ID", "Название", "Изделие", "Типовой процесс"),
+        return getMap(Arrays.asList("ID", "Название", "Изделие", "Типовой процесс", "Статус"),
                 proc -> Arrays.asList(
                         proc.getId().toString(),
                         proc.getName(),
                         "(ИД: " + proc.getProd().getId() + ") " + proc.getProd().getName(),
-                        "(ИД: " + proc.getTypePr().getId() + ") " + proc.getTypePr().getName()
+                        "(ИД: " + proc.getTypePr().getId() + ") " + proc.getTypePr().getName(),
+                        proc.getIsDone() ? "Закончен" : "В обработке"
                 ),
                 processRep);
     }

@@ -20,7 +20,7 @@ public class ChooseProcessToManageController {
     @GetMapping
     public String main(Model model) {
         Map<String, List<List<String>>> tables = new HashMap<>();
-        tables.put("typeProcess", Util.get(processRep));
+        tables.put("process", Util.get(processRep));
         model.addAttribute("title", "Выбор процесса для управления");
         model.addAttribute("tables", tables);
         return "choose_process";
