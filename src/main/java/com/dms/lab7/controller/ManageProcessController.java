@@ -1,6 +1,8 @@
 package com.dms.lab7.controller;
 
-import com.dms.lab7.Util;
+import com.dms.lab7.entity.Process;
+import com.dms.lab7.entity.TypeDecision;
+import com.dms.lab7.repository.ProcessRep;
 import com.dms.lab7.repository.TypeDecisionRep;
 import java.util.Collections;
 import java.util.List;
@@ -17,11 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class ManageProcessController {
     private final TypeDecisionRep typeDecisionRep;
+    private final ProcessRep processRep;
     @GetMapping
     public String main(Model model, @RequestParam Long idProc) {
-        List<List<String>> collect = Util.getByDecisionsState(typeDecisionRep, idProc);
-        Map<String, List<List<String>>> res = Collections.singletonMap("typeDec", collect);
-        model.addAttribute("tables", res);
+        Process currentProc = processRep.getOne(idProc);
+        // TODO: Должно быть раскомичено, когда будешь корректно доставать
+        // TODO: возможные решения для текущего состояния по iD (нормально реализован метод findAllByProcessId(idProc))
+        //List<TypeDecision> allByProcessId = typeDecisionRep.findAllByProcessId(idProc);
+        List<TypeDecision> allByProcessId = typeDecisionRep.findAll();
+        Map<Process, List<TypeDecision>> processListMap = Collections.singletonMap(currentProc, allByProcessId);
+        model.addAttribute("processState", processListMap);
         return "manage";
     }
 }

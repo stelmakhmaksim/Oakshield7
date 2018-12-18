@@ -1,7 +1,6 @@
 package com.dms.lab7;
 
 import com.dms.lab7.entity.Person;
-import com.dms.lab7.entity.TypeDecision;
 import com.dms.lab7.repository.*;
 import java.util.Arrays;
 import java.util.List;
@@ -18,24 +17,10 @@ public class Util {
         return collect;
     }
 
-    private static List<List<String>> getMapForState(List<String> headers, Function<TypeDecision, List<String>> func, TypeDecisionRep rep, Long id) {
-        List<List<String>> collect = rep.findAllByStateId(id).stream()
-                .map(func)
-                .collect(Collectors.toList());
-        collect.add(0, headers);
-        return collect;
-    }
-
     public static List<List<String>> get(TypeDecisionRep typeDecisionRep) {
         return getMap(Arrays.asList("ID", "Название"),
                 dec -> Arrays.asList(dec.getId().toString(), dec.getName()),
                 typeDecisionRep);
-    }
-
-    public static List<List<String>> getByDecisionsState(TypeDecisionRep typeDecisionRep, Long id) {
-        return getMapForState(Arrays.asList("ID", "Название"),
-                dec -> Arrays.asList(dec.getId().toString(), dec.getName()),
-                typeDecisionRep, id);
     }
 
     public static List<List<String>> get(TypeStateRep typeStateRep) {
