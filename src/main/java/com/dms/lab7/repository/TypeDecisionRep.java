@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TypeDecisionRep extends JpaRepository<TypeDecision, Long> {
     @Query(value = "select * from DECISION", nativeQuery = true)
-    List<TypeDecision> findAllByProcessId(Long id);
+    List<TypeDecision> findAllByStateId(Long id);
 }
