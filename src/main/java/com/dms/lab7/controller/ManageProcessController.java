@@ -80,6 +80,9 @@ public class ManageProcessController {
             if (newState == null){ // TODO: проверка нашлось ли оно
                 currentProc.setIsDone(true);
                 processRep.save(currentProc);
+                model.addAttribute("processName", currentProc.getName());
+                model.addAttribute("processTrajectories", trajectories);
+                model.addAttribute("title", "Управление процессом");
                 return "processend";
             }
             savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
