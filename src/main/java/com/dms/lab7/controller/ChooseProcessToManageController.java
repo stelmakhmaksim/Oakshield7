@@ -1,7 +1,7 @@
 package com.dms.lab7.controller;
 
 import com.dms.lab7.Util;
-import com.dms.lab7.repository.TypeProcessRep;
+import com.dms.lab7.repository.ProcessRep;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/choose_process")
 @RequiredArgsConstructor
 public class ChooseProcessToManageController {
-    private final TypeProcessRep typeProcessRep;
+    private final ProcessRep processRep;
 
     @GetMapping
     public String main(Model model) {
         Map<String, List<List<String>>> tables = new HashMap<>();
-        tables.put("typeProcess", Util.get(typeProcessRep));
+        tables.put("typeProcess", Util.get(processRep));
         model.addAttribute("title", "Выбор процесса для управления");
         model.addAttribute("tables", tables);
         return "choose_process";

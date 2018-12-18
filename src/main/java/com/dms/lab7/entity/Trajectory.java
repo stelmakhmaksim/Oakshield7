@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Trajectory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,6 @@ public class Trajectory {
     @ManyToOne
     @JoinColumn
     private TypeDecision typeDecision;
-    @Column(columnDefinition = "boolean default false", nullable = false)
+    @Column(columnDefinition = "boolean default true", nullable = false)
     private Boolean isCurrent;
 }
