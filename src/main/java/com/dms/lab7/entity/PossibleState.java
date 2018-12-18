@@ -8,19 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import lombok.Data;
 
 @Data
 @Entity
 public class PossibleState {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = {@JoinColumn(name = "TypeState"), @JoinColumn(name ="TypeDecision")})
+    @ManyToOne
+    @JoinTable(name = "PREDICAT2",
+        joinColumns = @JoinColumn(name = "DECISION_ID"),
+        inverseJoinColumns = @JoinColumn(name = "STATE_ID"))
     private Predicat2 predicat2;
 
     @ManyToOne
