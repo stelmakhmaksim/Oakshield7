@@ -32,10 +32,10 @@
         <th>Состояние процесса</th>
         <th>Решение</th>
     </tr>
-    <c:forEach items="${processTrajectory}" var="processTrajectory">
+    <c:forEach items="${processTrajectories}" var="processTrajectories">
         <tr>
-            <td><c:out value="${processTrajectory.state.typeState.name}"/></td>
-            <td><c:out value="${processTrajectory.typeDecision.name}"/></td>
+            <td><c:out value="${processTrajectories.state.typeState.name}"/></td>
+            <td><c:out value="${processTrajectories.typeDecision.name}"/></td>
         </tr>
     </c:forEach>
 </table>

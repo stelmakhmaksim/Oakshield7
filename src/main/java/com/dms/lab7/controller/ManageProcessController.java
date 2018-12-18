@@ -6,9 +6,10 @@ import com.dms.lab7.entity.Trajectory;
 import com.dms.lab7.entity.TypeDecision;
 import com.dms.lab7.repository.ProcessRep;
 import com.dms.lab7.repository.StateRep;
+import com.dms.lab7.repository.TrajectoryRep;
 import com.dms.lab7.repository.TypeDecisionRep;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +25,7 @@ public class ManageProcessController {
     private final TypeDecisionRep typeDecisionRep;
     private final ProcessRep processRep;
     private final StateRep stateRep;
-    //private final TrajectoryRep trajectoryRep;
-
-    private List<Trajectory> getTrajectories(Long idProc){
-        Trajectory trajectory1 = new Trajectory(1L, stateRep.getOne(1L), typeDecisionRep.getOne(1L));
-        Trajectory trajectory2 = new Trajectory(3L, stateRep.getOne(2L), typeDecisionRep.getOne(2L));
-        //return trajectoryRep.saveAll(Arrays.asList(trajectory1, trajectory2, trajectory3, trajectory4));
-        return Arrays.asList(trajectory1, trajectory2);
-
-    }
+    private final TrajectoryRep trajectoryRep;
 
     @GetMapping
     public String main(Model model, @RequestParam Long idProc) {
@@ -58,16 +51,20 @@ public class ManageProcessController {
         // TODO: Должно быть раскомичено, когда будешь корректно доставать
         // TODO: возможные решения для текущего состояния по iD состояния (нормально реализован метод findAllByStateId(idProc))
         //List<TypeDecision> allByStateId = typeDecisionRep.findAllByStateId(idState);
-        // TODO: findCurrentStateByProcessId достает текущее состояние процесса с idProc
-        // State currentStateByProcessId = stateRep.findCurrentStateByProcessId(idProc);
-        // TODO: findAllByProcessId достает историю изменений процесса idProc
-        //List<Trajectory> allByProcessId = trajectoryRep.findAllByProcessId(idProc);
-        State currentStateByProcessId = stateRep.findAll().get(0);
+        List<Trajectory> trajectories = stateRep.findStatesByProcessId(idProc).stream()
+                .map(State::getId)
+                .map(trajectoryRep::findByStateId)
+                .collect(Collectors.toList());
+        Trajectory currentTrajectory = stateRep.findStatesByProcessId(idProc).stream()
+                .map(State::getId)
+                .map(trajectoryRep::findByStateId)
+                .filter(Trajectory::getIsCurrent)
+                .findFirst().get();
         List<TypeDecision> allByStateId = typeDecisionRep.findAll();
-        model.addAttribute("processState", currentStateByProcessId);
+        model.addAttribute("processState", currentTrajectory.getState());
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
-        model.addAttribute("processTrajectory", getTrajectories(idProc));
+        model.addAttribute("processTrajectories", trajectories);
         model.addAttribute("title", "Управление процессом");
     }
 }
