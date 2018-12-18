@@ -78,15 +78,20 @@ public class ManageProcessController {
             TypeDecision currentDecision = typeDecisionRep.getOne(id);
             savedCurrentTrajectory.setTypeDecision(currentDecision);
             trajectoryRep.save(savedCurrentTrajectory);
-            //// TODO: Тут мы сохраняем измененную траекторию и ты должен присвоить
-            //// TODO: savedCurrentTrajectory = следующее_состояние_для_этого_процесса
-            //// TODO: и записать это новое состояние в таблицу Траектория  Trajectory.builder().state(новое_состояние).isCurrent(true).build()
+            State newState = new State(); // TODO: запихни сюда новое состояние
+            if (newState == null){ // TODO: проверка нашлось ли оно
+                currentProc.setIsDone(true);
+                processRep.save(currentProc);
+                return;
+            }
+            savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
+            trajectoryRep.save(savedCurrentTrajectory);
         }
         // TODO: Должно быть раскомичено, когда будешь корректно доставать
         // TODO: возможные решения для текущего состояния по iD состояния (нормально реализован метод findAllByStateId(idProc))
         //List<TypeDecision> allByStateId = typeDecisionRep.findAllByStateId(idState);
-
         List<TypeDecision> allByStateId = typeDecisionRep.findAll();
+
         model.addAttribute("processState", savedCurrentTrajectory.getState());
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
