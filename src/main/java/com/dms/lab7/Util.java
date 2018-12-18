@@ -30,7 +30,7 @@ public class Util {
     }
 
     public static List<List<String>> get(Predicate2Rep predicate2Rep) {
-        return getMap(Arrays.asList("ID", "Процесс", "Состояние"),
+        return getMap(Arrays.asList("ID", "Решение", "Состояние"),
                 pred -> Arrays.asList(
                         pred.getId().toString(),
                         "(ИД:" + pred.getDecision().getId() + ") " + pred.getDecision().getName(),
