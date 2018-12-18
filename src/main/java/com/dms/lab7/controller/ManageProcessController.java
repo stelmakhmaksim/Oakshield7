@@ -30,19 +30,17 @@ public class ManageProcessController {
 
     @GetMapping
     public String main(Model model, @RequestParam Long idProc) throws Exception {
-        prepareModel(model, idProc, false, 0);
-        return "manage";
+        return prepareModel(model, idProc, false, 0);
     }
 
     @PostMapping
     public String updateStateByProc(Model model, @RequestParam Long idProc, @RequestParam Long id) throws Exception {
         System.out.println(id); // id решения
         System.out.println(idProc); // id процесса
-        prepareModel(model, idProc, true, id);
-        return "manage";
+        return prepareModel(model, idProc, true, id);
     }
 
-    private void prepareModel(Model model, Long idProc, boolean goToAnotherState, long id) throws Exception {
+    private String prepareModel(Model model, Long idProc, boolean goToAnotherState, long id) throws Exception {
         Process currentProc = processRep.getOne(idProc);
         List<State> statesByProcessId = stateRep.findStatesByProcessId(idProc);
         if (statesByProcessId == null) {
@@ -78,19 +76,28 @@ public class ManageProcessController {
             TypeDecision currentDecision = typeDecisionRep.getOne(id);
             savedCurrentTrajectory.setTypeDecision(currentDecision);
             trajectoryRep.save(savedCurrentTrajectory);
-            //// TODO: Тут мы сохраняем измененную траекторию и ты должен присвоить
-            //// TODO: savedCurrentTrajectory = следующее_состояние_для_этого_процесса
-            //// TODO: и записать это новое состояние в таблицу Траектория  Trajectory.builder().state(новое_состояние).isCurrent(true).build()
+            State newState = new State(); // TODO: запихни сюда новое состояние
+            if (newState == null){ // TODO: проверка нашлось ли оно
+                currentProc.setIsDone(true);
+                processRep.save(currentProc);
+                model.addAttribute("processName", currentProc.getName());
+                model.addAttribute("processTrajectories", trajectories);
+                model.addAttribute("title", "Управление процессом");
+                return "processend";
+            }
+            savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
+            trajectoryRep.save(savedCurrentTrajectory);
         }
         // TODO: Должно быть раскомичено, когда будешь корректно доставать
         // TODO: возможные решения для текущего состояния по iD состояния (нормально реализован метод findAllByStateId(idProc))
         //List<TypeDecision> allByStateId = typeDecisionRep.findAllByStateId(idState);
-
         List<TypeDecision> allByStateId = typeDecisionRep.findAll();
+
         model.addAttribute("processState", savedCurrentTrajectory.getState());
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
         model.addAttribute("processTrajectories", trajectories);
         model.addAttribute("title", "Управление процессом");
+        return "manage";
     }
 }

@@ -5,6 +5,9 @@ import com.dms.lab7.entity.Process;
 import com.dms.lab7.repository.ProcessRep;
 import com.dms.lab7.repository.ProdRep;
 import com.dms.lab7.repository.TypeProcessRep;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/constructor/proc")
@@ -46,6 +45,7 @@ public class ProcessController {
         process.setName(name);
         process.setProd(prodRep.findById(idProd).orElseThrow(() -> new IllegalArgumentException("Нет такого изделия")));
         process.setTypePr(typeProcessRep.findById(idProc).orElseThrow(() -> new IllegalArgumentException("Нет такого типового процесса")));
+        process.setIsDone(false);
         processRep.save(process);
         return get(model);
     }
