@@ -34,8 +34,9 @@ public class ManageProcessController {
         State currentStateByProcessId = stateRep.findAll().get(0);
         List<TypeDecision> allByStateId = typeDecisionRep.findAll();
         Map<State, List<TypeDecision>> processListMap = Collections.singletonMap(currentStateByProcessId, allByStateId);
-        model.addAttribute("processState", processListMap);
+        model.addAttribute("processState", currentStateByProcessId);
         model.addAttribute("processName", currentProc.getName());
+        model.addAttribute("possibleSolving", allByStateId);
         return "manage";
     }
 }

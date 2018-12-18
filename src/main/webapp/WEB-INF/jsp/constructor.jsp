@@ -8,22 +8,22 @@
     <title>Конструктор</title>
 </head>
 <body>
-<div><a href="${pageContext.request.contextPath}/prod">Изделия</a></div>
-<div><a href="${pageContext.request.contextPath}/typeDec">Типовые решения</a></div>
-<div><a href="${pageContext.request.contextPath}/typeState">Типовые состояния</a></div>
-<div><a href="${pageContext.request.contextPath}/typeProcess">Типовые процессы</a></div>
-<div><a href="${pageContext.request.contextPath}/funct">Функции</a></div>
-<div><a href="${pageContext.request.contextPath}/predicate">Предикаты</a></div>
-<div><a href="${pageContext.request.contextPath}/formula">Формулы</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/prod">Изделия</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/typeDec">Типовые решения</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/typeState">Типовые состояния</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/typeProcess">Типовые процессы</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/funct">Функции</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/predicate">Предикаты</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/formula">Формулы</a></div>
 <br>
-<div><a href="${pageContext.request.contextPath}/persons">Сотрудники</a></div>
-<div><a href="${pageContext.request.contextPath}/grPersons">Группы сотрудников</a></div>
-<div><a href="${pageContext.request.contextPath}/grIncl">Включение сотрудников в группу</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/persons">Сотрудники</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/grPersons">Группы сотрудников</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/grIncl">Включение сотрудников в группу</a></div>
 <br>
-<div><a href="${pageContext.request.contextPath}/state">Возможные состояния типового процесса</a></div>
-<div><a href="${pageContext.request.contextPath}/dec">Возможные решения типового процесса</a></div>
-<div><a href="${pageContext.request.contextPath}/perm">Разрешения</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/state">Возможные состояния типового процесса</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/dec">Возможные решения типового процесса</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/perm">Разрешения</a></div>
 <br>
-<div><a href="${pageContext.request.contextPath}proc">Процессы</a></div>
+<div><a href="${pageContext.request.contextPath}/constructor/proc">Процессы</a></div>
 </body>
 </html>
