@@ -30,19 +30,17 @@ public class ManageProcessController {
 
     @GetMapping
     public String main(Model model, @RequestParam Long idProc) throws Exception {
-        prepareModel(model, idProc, false, 0);
-        return "manage";
+        return prepareModel(model, idProc, false, 0);
     }
 
     @PostMapping
     public String updateStateByProc(Model model, @RequestParam Long idProc, @RequestParam Long id) throws Exception {
         System.out.println(id); // id решения
         System.out.println(idProc); // id процесса
-        prepareModel(model, idProc, true, id);
-        return "manage";
+        return prepareModel(model, idProc, true, id);
     }
 
-    private void prepareModel(Model model, Long idProc, boolean goToAnotherState, long id) throws Exception {
+    private String prepareModel(Model model, Long idProc, boolean goToAnotherState, long id) throws Exception {
         Process currentProc = processRep.getOne(idProc);
         List<State> statesByProcessId = stateRep.findStatesByProcessId(idProc);
         if (statesByProcessId == null) {
@@ -82,7 +80,7 @@ public class ManageProcessController {
             if (newState == null){ // TODO: проверка нашлось ли оно
                 currentProc.setIsDone(true);
                 processRep.save(currentProc);
-                return;
+                return "processend";
             }
             savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
             trajectoryRep.save(savedCurrentTrajectory);
@@ -97,5 +95,6 @@ public class ManageProcessController {
         model.addAttribute("possibleSolving", allByStateId);
         model.addAttribute("processTrajectories", trajectories);
         model.addAttribute("title", "Управление процессом");
+        return "manage";
     }
 }
