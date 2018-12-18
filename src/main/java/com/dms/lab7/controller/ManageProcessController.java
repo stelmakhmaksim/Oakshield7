@@ -39,6 +39,7 @@ public class ManageProcessController {
         model.addAttribute("processState", currentStateByProcessId);
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
+        model.addAttribute("title", "Управление процессом");
         return "manage";
     }
 
@@ -61,6 +62,7 @@ public class ManageProcessController {
         model.addAttribute("processState", currentStateByProcessId);
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
+        model.addAttribute("title", "Управление процессом");
         //////////////////////////////////////////////////////////////
 
         return "manage";

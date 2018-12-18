@@ -21,7 +21,7 @@ public class ChooseProcessToManageController {
     public String main(Model model) {
         Map<String, List<List<String>>> tables = new HashMap<>();
         tables.put("typeProcess", Util.get(typeProcessRep));
-        model.addAttribute("title", "Процессы");
+        model.addAttribute("title", "Выбор процесса для управления");
         model.addAttribute("tables", tables);
         return "choose_process";
     }
