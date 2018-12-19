@@ -29,11 +29,13 @@
 <table border="1">
     <caption>Траектория процесса ${processName}</caption>
     <tr>
+        <th>ИД</th>
         <th>Состояние процесса</th>
         <th>Решение</th>
     </tr>
     <c:forEach items="${processTrajectories}" var="processTrajectories">
         <tr>
+            <td><c:out value="${processTrajectories.id}"/></td>
             <td><c:out value="${processTrajectories.state.typeState.name}"/></td>
             <td><c:out value="${processTrajectories.typeDecision.name}"/></td>
         </tr>

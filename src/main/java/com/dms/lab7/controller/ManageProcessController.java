@@ -39,8 +39,6 @@ public class ManageProcessController {
 
     @PostMapping
     public String updateStateByProc(Model model, @RequestParam Long idProc, @RequestParam Long id) throws Exception {
-        System.out.println(id); // id решения
-        System.out.println(idProc); // id процесса
         return prepareModel(model, idProc, true, id);
     }
 
@@ -52,13 +50,13 @@ public class ManageProcessController {
         }
         List<Trajectory> trajectories = statesByProcessId.stream()
                 .map(State::getId)
-                .map(trajectoryRep::findByStateId)
+                .flatMap(idState -> trajectoryRep.findByStateId(idState).stream())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         Trajectory savedCurrentTrajectory = null;
         if (trajectories.size() == 0) {
             State currentState = statesByProcessId.stream().filter(State::getBegin).findFirst().orElse(null);
-            if (currentState == null){
+            if (currentState == null) {
                 throw new Exception("Не задано начальное состояние");
             } else {
                 savedCurrentTrajectory = trajectoryRep.save(Trajectory.builder()
@@ -68,7 +66,7 @@ public class ManageProcessController {
                 trajectories.add(savedCurrentTrajectory);
             }
         }
-        if (savedCurrentTrajectory == null){
+        if (savedCurrentTrajectory == null) {
             savedCurrentTrajectory = trajectories.stream()
                     .filter(Trajectory::getIsCurrent)
                     .findFirst().get();
@@ -76,17 +74,18 @@ public class ManageProcessController {
 
         // Тут выполняется условие если мы выбираем како-то решение для нашего состояния,
         // изменненное состояние апдейстится в таблице траектории
-        if (goToAnotherState){
+        if (goToAnotherState) {
             TypeDecision currentDecision = typeDecisionRep.getOne(id);
             savedCurrentTrajectory.setTypeDecision(currentDecision);
+            savedCurrentTrajectory.setIsCurrent(false);
             TypeState typeState = savedCurrentTrajectory.getState().getTypeState();
             TypeDecision decisionName = savedCurrentTrajectory.getTypeDecision();
             List<PossibleState> possibleStates = possibleStateRep.findAll();
             PossibleState possibleState = possibleStates.stream().filter(
-                pr -> pr.getPredicat2().getDecision().equals(decisionName) && pr.getPredicat2().getState()
-                    .equals(typeState)).findFirst().orElse(null);
+                    pr -> pr.getPredicat2().getDecision().equals(decisionName) && pr.getPredicat2().getState()
+                            .equals(typeState)).findFirst().orElse(null);
             trajectoryRep.save(savedCurrentTrajectory);
-            if (possibleState == null){ // TODO: проверка нашлось ли оно
+            if (possibleState == null) { // TODO: проверка нашлось ли оно
                 currentProc.setIsDone(true);
                 processRep.save(currentProc);
                 model.addAttribute("processName", currentProc.getName());
@@ -94,28 +93,28 @@ public class ManageProcessController {
                 model.addAttribute("title", "Управление процессом");
                 return "processend";
             }
-            TypeState typeState1 = possibleState.getTypeState();// TODO: запихни сюда новое состояние
+            TypeState typeState1 = possibleState.getTypeState();
             State newState = stateRep
-                .findStatesByProcessIdAndTypeStateId(idProc, typeState1.getId());
+                    .findStatesByProcessIdAndTypeStateId(idProc, typeState1.getId());
 
             savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
             trajectoryRep.save(savedCurrentTrajectory);
+
         }
-        // TODO: Должно быть раскомичено, когда будешь корректно доставать
-        // TODO: возможные решения для текущего состояния по iD состояния (нормально реализован метод findAllByStateId(idProc))
 
         TypeState typeState = savedCurrentTrajectory.getState().getTypeState();
         List<PossibleState> possibleStates = possibleStateRep.findAll();
 
         List<PossibleState> collect = possibleStates.stream().filter(
-            pr -> pr.getPredicat2().getState()
-                .equals(typeState)).collect(Collectors.toList());
+                pr -> pr.getPredicat2().getState()
+                        .equals(typeState)).collect(Collectors.toList());
         List<TypeDecision> allByStateId = collect.stream().map(s -> s.getPredicat2().getDecision())
-            .collect(Collectors.toList());
+                .collect(Collectors.toList());
+
         model.addAttribute("processState", savedCurrentTrajectory.getState());
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
-        model.addAttribute("processTrajectories", trajectories);
+        model.addAttribute("processTrajectories", trajectories.stream().filter(tr -> tr.getTypeDecision() != null).collect(Collectors.toList()));
         model.addAttribute("title", "Управление процессом");
         return "manage";
     }
