@@ -8,4 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface StateRep extends JpaRepository<State, Long> {
     @Query(value = "select * from STATE where TYPE_PROCESS_ID = ?", nativeQuery = true)
     List<State> findStatesByProcessId(Long idProc);
+
+    @Query(value = "select * from STATE where TYPE_PROCESS_ID = ? and TYPE_STATE_ID = ?", nativeQuery = true)
+    State findStatesByProcessIdAndTypeStateId(Long idProc, Long id);
 }

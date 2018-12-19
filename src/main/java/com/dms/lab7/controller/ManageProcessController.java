@@ -1,9 +1,12 @@
 package com.dms.lab7.controller;
 
+import com.dms.lab7.entity.PossibleState;
 import com.dms.lab7.entity.Process;
 import com.dms.lab7.entity.State;
 import com.dms.lab7.entity.Trajectory;
 import com.dms.lab7.entity.TypeDecision;
+import com.dms.lab7.entity.TypeState;
+import com.dms.lab7.repository.PossibleStateRep;
 import com.dms.lab7.repository.ProcessRep;
 import com.dms.lab7.repository.StateRep;
 import com.dms.lab7.repository.TrajectoryRep;
@@ -27,6 +30,7 @@ public class ManageProcessController {
     private final ProcessRep processRep;
     private final StateRep stateRep;
     private final TrajectoryRep trajectoryRep;
+    private final PossibleStateRep possibleStateRep;
 
     @GetMapping
     public String main(Model model, @RequestParam Long idProc) throws Exception {
@@ -75,9 +79,14 @@ public class ManageProcessController {
         if (goToAnotherState){
             TypeDecision currentDecision = typeDecisionRep.getOne(id);
             savedCurrentTrajectory.setTypeDecision(currentDecision);
+            TypeState typeState = savedCurrentTrajectory.getState().getTypeState();
+            TypeDecision decisionName = savedCurrentTrajectory.getTypeDecision();
+            List<PossibleState> possibleStates = possibleStateRep.findAll();
+            PossibleState possibleState = possibleStates.stream().filter(
+                pr -> pr.getPredicat2().getDecision().equals(decisionName) && pr.getPredicat2().getState()
+                    .equals(typeState)).findFirst().orElse(null);
             trajectoryRep.save(savedCurrentTrajectory);
-            State newState = new State(); // TODO: запихни сюда новое состояние
-            if (newState == null){ // TODO: проверка нашлось ли оно
+            if (possibleState == null){ // TODO: проверка нашлось ли оно
                 currentProc.setIsDone(true);
                 processRep.save(currentProc);
                 model.addAttribute("processName", currentProc.getName());
@@ -85,14 +94,24 @@ public class ManageProcessController {
                 model.addAttribute("title", "Управление процессом");
                 return "processend";
             }
+            TypeState typeState1 = possibleState.getTypeState();// TODO: запихни сюда новое состояние
+            State newState = stateRep
+                .findStatesByProcessIdAndTypeStateId(idProc, typeState1.getId());
+
             savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
             trajectoryRep.save(savedCurrentTrajectory);
         }
         // TODO: Должно быть раскомичено, когда будешь корректно доставать
         // TODO: возможные решения для текущего состояния по iD состояния (нормально реализован метод findAllByStateId(idProc))
-        //List<TypeDecision> allByStateId = typeDecisionRep.findAllByStateId(idState);
-        List<TypeDecision> allByStateId = typeDecisionRep.findAll();
 
+        TypeState typeState = savedCurrentTrajectory.getState().getTypeState();
+        List<PossibleState> possibleStates = possibleStateRep.findAll();
+
+        List<PossibleState> collect = possibleStates.stream().filter(
+            pr -> pr.getPredicat2().getState()
+                .equals(typeState)).collect(Collectors.toList());
+        List<TypeDecision> allByStateId = collect.stream().map(s -> s.getPredicat2().getDecision())
+            .collect(Collectors.toList());
         model.addAttribute("processState", savedCurrentTrajectory.getState());
         model.addAttribute("processName", currentProc.getName());
         model.addAttribute("possibleSolving", allByStateId);
