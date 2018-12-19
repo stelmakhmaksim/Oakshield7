@@ -103,7 +103,7 @@ public class ManageProcessController {
         }
 
         TypeState typeState = savedCurrentTrajectory.getState().getTypeState();
-        List<PossibleState> possibleStates = possibleStateRep.findAll();
+        List<PossibleState> possibleStates = possibleStateRep.findAllByProcess(currentProc.getTypePr().getId());
 
         List<PossibleState> collect = possibleStates.stream().filter(
                 pr -> pr.getPredicat2().getState()

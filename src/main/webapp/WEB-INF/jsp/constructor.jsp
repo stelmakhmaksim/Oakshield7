@@ -12,9 +12,9 @@
 <div><a href="${pageContext.request.contextPath}/constructor/typeDec">Типовые решения</a></div>
 <div><a href="${pageContext.request.contextPath}/constructor/typeState">Типовые состояния</a></div>
 <div><a href="${pageContext.request.contextPath}/constructor/typeProcess">Типовые процессы</a></div>
-<div><a href="${pageContext.request.contextPath}/constructor/funct">Функции</a></div>
+<!-- <div><a href="${pageContext.request.contextPath}/constructor/funct">Функции</a></div> -->
 <div><a href="${pageContext.request.contextPath}/constructor/predicate">Предикаты</a></div>
-<div><a href="${pageContext.request.contextPath}/constructor/formula">Формулы</a></div>
+<!-- <div><a href="${pageContext.request.contextPath}/constructor/formula">Формулы</a></div> -->
 <br>
 <div><a href="${pageContext.request.contextPath}/constructor/persons">Сотрудники</a></div>
 <div><a href="${pageContext.request.contextPath}/constructor/grPersons">Группы сотрудников</a></div>

@@ -1,8 +1,11 @@
 package com.dms.lab7.controller;
 
 import com.dms.lab7.Util;
-import com.dms.lab7.entity.*;
-import com.dms.lab7.repository.*;
+import com.dms.lab7.entity.State;
+import com.dms.lab7.repository.FunctRep;
+import com.dms.lab7.repository.StateRep;
+import com.dms.lab7.repository.TypeProcessRep;
+import com.dms.lab7.repository.TypeStateRep;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +48,7 @@ public class StateController {
         State state = new State();
         state.setTypeProcess(typeProcessRep.findById(idProc).orElseThrow(() -> new IllegalArgumentException("Нет такого типового процесса")));
         state.setTypeState(typeStateRep.findById(idState).orElseThrow(() -> new IllegalArgumentException("Нет такого типового состояния")));
-        state.setFunct(functRep.findById(idFunc).orElseThrow(() -> new IllegalArgumentException("Нет такой функции")));
+        state.setFunct(functRep.findById(1L).orElseThrow(() -> new IllegalArgumentException("Нет такой функции")));
         state.setBegin(beg != 0);
         stateRep.save(state);
         return get(model);

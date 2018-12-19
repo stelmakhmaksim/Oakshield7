@@ -91,22 +91,23 @@ public class Util {
     }
 
     public static List<List<String>> get(StateRep stateRep) {
-        return getMap(Arrays.asList("ID", "Типовой процесс", "Типовое состояние", "Функция", "Начальный"),
+        return getMap(Arrays.asList("ID", "Типовой процесс", "Типовое состояние", "Начальный"),
             state -> Arrays.asList(
                 state.getId().toString(),
                 "(ИД: " + state.getTypeProcess().getId() + ") " + state.getTypeProcess().getName(),
                 "(ИД: " + state.getTypeState().getId() + ") " + state.getTypeState().getName(),
-                "(ИД: " + state.getFunct().getId() + ") " + state.getFunct().getName(),
+                //"(ИД: " + state.getFunct().getId() + ") " + state.getFunct().getName(),
                 state.getBegin() ? "1" : "0"
             ),
             stateRep);
     }
 
     public static List<List<String>> get(PossibleStateRep possibleStateRep) {
-        return getMap(Arrays.asList("ID", "Решение", "Состояние", "Возможное состояние перехода"),
+        return getMap(Arrays.asList("ID", "ID процесса", "Решение", "Состояние", "Возможное состояние перехода"),
             possibleState -> Arrays.asList(
                 possibleState.getId().toString(),
-                "(ИД: " + possibleState.getPredicat2().getDecision().getId() + ") " + possibleState.getPredicat2()
+                    "(ИД: " + possibleState.getTypeProcess().getId() + ") " + possibleState.getTypeProcess().getName(),
+                    "(ИД: " + possibleState.getPredicat2().getDecision().getId() + ") " + possibleState.getPredicat2()
                     .getDecision().getName(),
                 "(ИД: " + possibleState.getPredicat2().getState().getId() + ") " + possibleState.getPredicat2()
                     .getState().getName(),

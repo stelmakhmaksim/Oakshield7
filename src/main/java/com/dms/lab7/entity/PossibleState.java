@@ -18,6 +18,10 @@ public class PossibleState {
 
     @ManyToOne
     @JoinColumn
+    private TypeProcess typeProcess;
+
+    @ManyToOne
+    @JoinColumn
     private Predicat2 predicat2;
 
     @ManyToOne
