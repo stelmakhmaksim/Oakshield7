@@ -44,7 +44,7 @@ public class ManageProcessController {
 
     private String prepareModel(Model model, Long idProc, boolean goToAnotherState, long id) throws Exception {
         Process currentProc = processRep.getOne(idProc);
-        List<State> statesByProcessId = stateRep.findStatesByProcessId(idProc);
+        List<State> statesByProcessId = stateRep.findStatesByProcessId(currentProc.getTypePr().getId());
         if (statesByProcessId == null) {
             throw new Exception("Не заданы состояния процесса");
         }
@@ -95,7 +95,7 @@ public class ManageProcessController {
             }
             TypeState typeState1 = possibleState.getTypeState();
             State newState = stateRep
-                    .findStatesByProcessIdAndTypeStateId(idProc, typeState1.getId());
+                    .findStatesByProcessIdAndTypeStateId(currentProc.getTypePr().getId(), typeState1.getId());
 
             savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
             trajectoryRep.save(savedCurrentTrajectory);
