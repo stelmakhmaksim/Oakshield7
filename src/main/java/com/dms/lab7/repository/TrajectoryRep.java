@@ -8,4 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface TrajectoryRep extends JpaRepository<Trajectory, Long> {
     @Query(value = "select * from TRAJECTORY where STATE_ID = ?", nativeQuery = true)
     List<Trajectory> findByStateId(Long stateId);
+
+    @Query(value = "select * from TRAJECTORY where PROCESS_ID = ?", nativeQuery = true)
+    List<Trajectory> findByProcessId(Long stateId);
 }

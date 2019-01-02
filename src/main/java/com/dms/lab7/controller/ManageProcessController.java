@@ -52,6 +52,7 @@ public class ManageProcessController {
                 .map(State::getId)
                 .flatMap(idState -> trajectoryRep.findByStateId(idState).stream())
                 .filter(Objects::nonNull)
+                .filter(trajectory -> trajectory.getProcess().getId().equals(currentProc.getId()))
                 .collect(Collectors.toList());
         Trajectory savedCurrentTrajectory = null;
         if (trajectories.size() == 0) {
@@ -62,6 +63,7 @@ public class ManageProcessController {
                 savedCurrentTrajectory = trajectoryRep.save(Trajectory.builder()
                         .state(currentState)
                         .isCurrent(true)
+                        .process(currentProc)
                         .build());
                 trajectories.add(savedCurrentTrajectory);
             }
@@ -85,7 +87,7 @@ public class ManageProcessController {
                     pr -> pr.getPredicat2().getDecision().equals(decisionName) && pr.getPredicat2().getState()
                             .equals(typeState)).findFirst().orElse(null);
             trajectoryRep.save(savedCurrentTrajectory);
-            if (possibleState == null) { // TODO: проверка нашлось ли оно
+            if (possibleState == null) {
                 currentProc.setIsDone(true);
                 processRep.save(currentProc);
                 model.addAttribute("processName", currentProc.getName());
@@ -97,7 +99,7 @@ public class ManageProcessController {
             State newState = stateRep
                     .findStatesByProcessIdAndTypeStateId(currentProc.getTypePr().getId(), typeState1.getId());
 
-            savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).build();
+            savedCurrentTrajectory = Trajectory.builder().state(newState).isCurrent(true).process(currentProc).build();
             trajectoryRep.save(savedCurrentTrajectory);
 
         }
